@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
     }
     public void ButtonHit()
     {
-        ProgressBar.instance.AddScore(0.1f);
+        ProgressBar.instance.AddScore(0.05f);
     }
    public void ButtonMissed()
     {

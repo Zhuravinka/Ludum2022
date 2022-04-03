@@ -10,8 +10,11 @@ public class ButtonGenerator : MonoBehaviour
 
     public static KeyCode _keyToPress = KeyCode.Space;
     GameObject _button;
-   // public static Queue<GameObject> _activeButtons = new Queue<GameObject>();
-    float _beats = 2f;
+
+    float[] threshhold = new float[] { 0.4f, 0.6f, 0.8f };
+
+    float[] _beats = new float[] { 1.8f, 1.5f, 1.3f };
+    float spawnSpeed = 2f;
     void Start()
     {
 
@@ -21,7 +24,14 @@ public class ButtonGenerator : MonoBehaviour
 
     void Update()
     {
-        
+        for (int i=0; i<3; i++)
+        {
+            if (ProgressBar.instance.slider.value > threshhold[i])
+            {
+                spawnSpeed = _beats[i];
+            }
+        }
+
     }
 
 
@@ -30,13 +40,11 @@ public class ButtonGenerator : MonoBehaviour
         for(int i=0; i<100; i++)
         {
             SpawnButton();
-            yield return new WaitForSeconds(_beats);
+            yield return new WaitForSeconds(spawnSpeed);
         }
     }
     public void SpawnButton()
     {
        GameObject newButton = Instantiate(buttons[Random.Range(0, buttons.Count)], roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
-        
-        //_activeButtons.Enqueue(newButton);
     }
 }

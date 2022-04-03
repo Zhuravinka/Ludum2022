@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
     public static ProgressBar instance;
-    Slider slider;
+    public Slider slider;
     float newScore;
     float fillSpeed = 0.5f;
     void Start()
