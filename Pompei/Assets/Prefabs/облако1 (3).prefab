@@ -97,6 +97,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minSpeed: 2
   maxSpeed: 5
-  minY: 5
-  maxY: 10
+  minY: 2
+  maxY: 4
   buffer: 4

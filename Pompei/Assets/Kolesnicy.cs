@@ -19,7 +19,7 @@ public class Kolesnicy : MonoBehaviour
         {
             newButton = Instantiate(button, roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
             GameController.instance.combo = 0;
-           StartCoroutine( Kill());
+           StartCoroutine(Kill());
         }
     }
     public IEnumerator Kill()

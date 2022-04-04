@@ -5,8 +5,6 @@ using TMPro;
 
 public class Replics : MonoBehaviour
 {
-    public class DialogueSystem : MonoBehaviour
-    {
         public TextMeshProUGUI textComponent;
         public string[] lines;
         public float textSpeed;
@@ -29,16 +27,19 @@ public class Replics : MonoBehaviour
         
         IEnumerator TypeLine()
         {
-            if (index < lines.Length - 1)
+           while(true)
             {
-                index++;
-
-                textComponent.text = lines[index];
-                yield return new WaitForSeconds(textSpeed);
-                textComponent.text = string.Empty;
+            StartCoroutine(Hold());
+            yield return new WaitForSeconds(textSpeed);
             }
         }
-        
+    IEnumerator Hold()
+    {
+        textComponent.text = lines[Random.Range(0, lines.Length)];
+        yield return new WaitForSeconds(2f);
+        textComponent.text = string.Empty;
+
     }
+
 
 }

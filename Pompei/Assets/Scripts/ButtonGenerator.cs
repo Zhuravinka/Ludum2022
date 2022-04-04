@@ -9,6 +9,8 @@ public class ButtonGenerator : MonoBehaviour
     public static ButtonGenerator instance;
     [SerializeField] List<GameObject> buttons;
     [SerializeField] List<Transform> roots;
+   [SerializeField] GameObject cloudManager;
+    [SerializeField] GameObject Quotes;
 
     public static KeyCode _keyToPress = KeyCode.Space;
     GameObject _button;
@@ -73,6 +75,8 @@ public class ButtonGenerator : MonoBehaviour
     }
 
     public void StartGame(){
+       cloudManager.SetActive(true);
+        Quotes.SetActive(true);
         SpawnButton();
         StartCoroutine("ButtonSpawner");
         isStart = true;
