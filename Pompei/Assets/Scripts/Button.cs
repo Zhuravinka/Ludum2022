@@ -5,7 +5,7 @@ using UnityEngine;
 public class Button : MonoBehaviour
 {
    [SerializeField] public KeyCode key;
-   [SerializeField] float lifeTime;
+   [SerializeField] public float lifeTime;
 
     float timer;
     Transform _transform;
@@ -22,10 +22,7 @@ public class Button : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        
-           
-
-        if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Space))
+        if (Input.anyKeyDown)
         {
             if (Input.GetKeyDown(key))
             {
@@ -35,8 +32,10 @@ public class Button : MonoBehaviour
             }
             else
             {
-                if(!Input.GetKeyDown(KeyCode.Space))
+                if(!Input.GetKeyDown(KeyCode.Space)){
+                    _animator.SetTrigger("Error");
                     GameController.instance.ButtonMissed();
+                }
             }
 
         }
@@ -46,7 +45,8 @@ public class Button : MonoBehaviour
             GameController.instance.ButtonMissed();
             StartCoroutine("Kill");
         }
-
+        if(!ButtonGenerator.instance.isStart)
+            Destroy(this.gameObject);
     }
 
     public IEnumerator Kill()

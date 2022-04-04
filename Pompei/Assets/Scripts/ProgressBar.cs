@@ -9,6 +9,8 @@ public class ProgressBar : MonoBehaviour
     public Slider slider;
     float newScore;
     float fillSpeed = 0.5f;
+
+    public ButtonGenerator bg;
     void Start()
     {
         instance = this;
@@ -22,6 +24,9 @@ public class ProgressBar : MonoBehaviour
             slider.value += fillSpeed * Time.deltaTime;
         else
             slider.value -= fillSpeed * Time.deltaTime;
+        if(slider.value >= 1){
+            bg.EndGame();
+        }
     }
     public void AddScore(float score)
     {

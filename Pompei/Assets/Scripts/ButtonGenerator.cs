@@ -5,10 +5,10 @@ using UnityEngine.UI;
 using DialogueEditor;
 public class ButtonGenerator : MonoBehaviour
 {
-
+    public static ButtonGenerator instance;
     [SerializeField] List<GameObject> buttons;
     [SerializeField] List<Transform> roots;
-    [SerializeField] GameObject cloudManager;
+
     public static KeyCode _keyToPress = KeyCode.Space;
     GameObject _button;
 
@@ -17,18 +17,25 @@ public class ButtonGenerator : MonoBehaviour
     float[] _beats = new float[] { 1.6f, 1.4f, 1.1f };
     float spawnSpeed = 1.7f;
 
-    bool isStart;
-    [SerializeField] private NPCConversation start_dialogue;
+    public bool isStart;
+    [SerializeField] private NPCConversation start_dialogue_ru;
+    [SerializeField] private NPCConversation start_dialogue_en;
     [SerializeField] private Animator volcano_animator;
-
 
     [SerializeField] private Image back_image;
     [SerializeField] private Sprite default_sprite;
+    [SerializeField] private Image text_image;
+    [SerializeField] private Sprite default_text;
+
+    [SerializeField] private GameObject start_panel;
     void Start()
     {
-        ConversationManager.Instance.StartConversation(start_dialogue);
+        instance = this;
+        ConversationManager.Instance.StartConversation(start_dialogue_en);
         isStart = false;
         back_image.sprite = default_sprite;
+        text_image.sprite = default_text;
+        volcano_animator.speed = 1;
     }
 
     void Update()
@@ -43,6 +50,9 @@ public class ButtonGenerator : MonoBehaviour
             }
         }
     }
+    public void StartPanelTrue(){
+        start_panel.SetActive(true);
+    }
 
     public void StartGame(){
         SpawnButton();
@@ -50,13 +60,17 @@ public class ButtonGenerator : MonoBehaviour
         isStart = true;
         volcano_animator.enabled = true;
         back_image.gameObject.SetActive(false);
-        cloudManager.SetActive(true);
+        start_panel.SetActive(false);
     }   
+    public void EndGame(){
+        isStart = false;
+        volcano_animator.speed = 30;
+    }
 
 
     public IEnumerator ButtonSpawner()
     {
-        for(int i=0; i<500; i++)
+        for(int i=0; i<300; i++)
         {
             SpawnButton();
             yield return new WaitForSeconds(spawnSpeed);
@@ -64,6 +78,9 @@ public class ButtonGenerator : MonoBehaviour
     }
     public void SpawnButton()
     {
-       GameObject newButton = Instantiate(buttons[Random.Range(0, buttons.Count)], roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
+        if(isStart){
+            GameObject newButton = Instantiate(buttons[Random.Range(0, buttons.Count)], roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
+            newButton.GetComponent<Button>().lifeTime = spawnSpeed;
+        }
     }
 }

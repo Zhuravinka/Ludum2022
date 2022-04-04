@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+   public static GameController instance;
     [SerializeField] List<GameObject> buttons;
     [SerializeField] List<Transform> roots;
-
-    public static GameController instance;
 
     public int combo;
     void Start()
@@ -18,7 +17,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     public void ButtonHit()
     {

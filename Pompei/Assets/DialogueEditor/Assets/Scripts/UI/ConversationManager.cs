@@ -475,6 +475,10 @@ namespace DialogueEditor
             else
             {
                 NpcIcon.sprite = speech.Icon;
+                if(speech.Name == "Zeus")
+                    NpcIcon.gameObject.transform.localScale = new Vector3(1,1,1);
+                else
+                    NpcIcon.gameObject.transform.localScale = new Vector3(-1,1,1);
             }
 
             // Set font
