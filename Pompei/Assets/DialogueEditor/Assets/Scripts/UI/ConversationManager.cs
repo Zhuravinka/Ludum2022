@@ -475,7 +475,7 @@ namespace DialogueEditor
             else
             {
                 NpcIcon.sprite = speech.Icon;
-                if(speech.Name == "Zeus")
+                if(speech.Name == "Zeus" || speech.Name == "Зевс")
                     NpcIcon.gameObject.transform.localScale = new Vector3(1,1,1);
                 else
                     NpcIcon.gameObject.transform.localScale = new Vector3(-1,1,1);

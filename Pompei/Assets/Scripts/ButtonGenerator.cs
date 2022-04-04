@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DialogueEditor;
+using TMPro;
 public class ButtonGenerator : MonoBehaviour
 {
     public static ButtonGenerator instance;
@@ -12,10 +13,10 @@ public class ButtonGenerator : MonoBehaviour
     public static KeyCode _keyToPress = KeyCode.Space;
     GameObject _button;
 
-    float[] threshhold = new float[] { 0.3f, 0.6f, 0.8f };
+    float[] threshhold = new float[] { 0.4f, 0.6f, 0.8f };
 
-    float[] _beats = new float[] { 1.6f, 1.4f, 1.1f };
-    float spawnSpeed = 1.7f;
+    float[] _beats = new float[] { 1.8f, 1.5f, 1.3f };
+    float spawnSpeed = 2f;
 
     public bool isStart;
     [SerializeField] private NPCConversation start_dialogue_ru;
@@ -28,10 +29,18 @@ public class ButtonGenerator : MonoBehaviour
     [SerializeField] private Sprite default_text;
 
     [SerializeField] private GameObject start_panel;
+
+    [SerializeField] private TextMeshProUGUI tutorial;
+    [SerializeField] private TextMeshProUGUI tutorial_title;
+    [SerializeField] private TextMeshProUGUI tap;
     void Start()
     {
         instance = this;
-        ConversationManager.Instance.StartConversation(start_dialogue_en);
+        if(Localization.language == "EN"){
+            ConversationManager.Instance.StartConversation(start_dialogue_en);
+        }else{
+            ConversationManager.Instance.StartConversation(start_dialogue_ru);
+        }
         isStart = false;
         back_image.sprite = default_sprite;
         text_image.sprite = default_text;
@@ -52,6 +61,15 @@ public class ButtonGenerator : MonoBehaviour
     }
     public void StartPanelTrue(){
         start_panel.SetActive(true);
+        if(Localization.language == "EN"){
+            tutorial.text = "Use the power of slowing down the lava by pressing the SPACE. Citizens can beg for help, so use QWER for the divine power of evacuation";
+            tutorial_title.text = "TUTORIAL";
+            tap.text = "TAP TO CONTINUE!";
+        }else{
+            tutorial.text = "Используй силу замедления лавы нажимая на ПРОБЕЛ. Жители могут взмолить о помощи, тогда используй QWER для божественной силы эвакуации";
+            tutorial_title.text = "Обучение";
+            tap.text = "Нажмите, чтобы продолжить!";
+        }
     }
 
     public void StartGame(){
@@ -70,7 +88,7 @@ public class ButtonGenerator : MonoBehaviour
 
     public IEnumerator ButtonSpawner()
     {
-        for(int i=0; i<300; i++)
+        for(int i=0; i<100; i++)
         {
             SpawnButton();
             yield return new WaitForSeconds(spawnSpeed);
@@ -80,7 +98,7 @@ public class ButtonGenerator : MonoBehaviour
     {
         if(isStart){
             GameObject newButton = Instantiate(buttons[Random.Range(0, buttons.Count)], roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
-            newButton.GetComponent<Button>().lifeTime = spawnSpeed+0.2f;
+            newButton.GetComponent<Button>().lifeTime = spawnSpeed;
         }
     }
 }

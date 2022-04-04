@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DialogueEditor;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Volcano : MonoBehaviour
 {
@@ -28,10 +29,16 @@ public class Volcano : MonoBehaviour
     [SerializeField] private Sprite win_sprite;
     [SerializeField] private Sprite lose_sprite;
     [SerializeField] private Image text_image;
-    [SerializeField] private Sprite win_text;
-    [SerializeField] private Sprite lose_text;
+    [SerializeField] private Sprite win_text_en;
+    [SerializeField] private Sprite lose_text_en;
+    [SerializeField] private Sprite win_text_ru;
+    [SerializeField] private Sprite lose_text_ru;
 
     [SerializeField] private GameObject result_panel;
+
+    [SerializeField] private TextMeshProUGUI end;
+    [SerializeField] private TextMeshProUGUI restart;
+    [SerializeField] private TextMeshProUGUI gotomenu;
 
     private void Start(){
         volcano_animator.enabled = false;
@@ -64,16 +71,35 @@ public class Volcano : MonoBehaviour
         back_image.gameObject.SetActive(true);
         if(slider.value == 1){
             back_image.sprite = win_sprite;
-            text_image.sprite = win_text;
-            ConversationManager.Instance.StartConversation(win_dialogue_en);
+            if(Localization.language == "EN"){
+                text_image.sprite = win_text_en;
+                ConversationManager.Instance.StartConversation(win_dialogue_en);
+            }else{
+                text_image.sprite = win_text_ru;
+                ConversationManager.Instance.StartConversation(win_dialogue_ru);
+            }
         }else{
             back_image.sprite = lose_sprite;
-            text_image.sprite = lose_text;
-            ConversationManager.Instance.StartConversation(lose_dialogue_en);
+            if(Localization.language == "EN"){
+                text_image.sprite = lose_text_en;
+                ConversationManager.Instance.StartConversation(lose_dialogue_en);
+            }else{
+                text_image.sprite = lose_text_ru;
+                ConversationManager.Instance.StartConversation(lose_dialogue_ru);
+            }
         }
     }
     public void ActiveReesultPanel(){
         result_panel.SetActive(true);
+        if(Localization.language == "EN"){
+            end.text = "GAME IS END!";
+            restart.text = "RESTART";
+            gotomenu.text = "GO TO MENU";
+        }else{
+            end.text = "Игра окончена!";
+            restart.text = "Перезапустить";
+            gotomenu.text = "Выйти в меню";
+        }
     }
     public void GameRestart(){
         Application.LoadLevel(Application.loadedLevel);
