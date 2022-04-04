@@ -80,7 +80,7 @@ public class ButtonGenerator : MonoBehaviour
     {
         if(isStart){
             GameObject newButton = Instantiate(buttons[Random.Range(0, buttons.Count)], roots[Random.Range(0, roots.Count)].position, Quaternion.identity);
-            newButton.GetComponent<Button>().lifeTime = spawnSpeed;
+            newButton.GetComponent<Button>().lifeTime = spawnSpeed+0.2f;
         }
     }
 }
