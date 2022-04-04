@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Localization : MonoBehaviour
 {
-    public static string language = "RU";
+    public static string language = "EN";
     public string Language = language;
     
     public void SetRU(){
