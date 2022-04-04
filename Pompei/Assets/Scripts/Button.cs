@@ -25,7 +25,7 @@ public class Button : MonoBehaviour
         
            
 
-        if (Input.anyKeyDown)
+        if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.Space))
         {
             if (Input.GetKeyDown(key))
             {
@@ -35,7 +35,8 @@ public class Button : MonoBehaviour
             }
             else
             {
-                GameController.instance.ButtonMissed();
+                if(!Input.GetKeyDown(KeyCode.Space))
+                    GameController.instance.ButtonMissed();
             }
 
         }
