@@ -12,10 +12,10 @@ public class ButtonGenerator : MonoBehaviour
     public static KeyCode _keyToPress = KeyCode.Space;
     GameObject _button;
 
-    float[] threshhold = new float[] { 0.4f, 0.6f, 0.8f };
+    float[] threshhold = new float[] { 0.3f, 0.6f, 0.8f };
 
-    float[] _beats = new float[] { 1.8f, 1.5f, 1.3f };
-    float spawnSpeed = 2f;
+    float[] _beats = new float[] { 1.6f, 1.4f, 1.1f };
+    float spawnSpeed = 1.7f;
 
     bool isStart;
     [SerializeField] private NPCConversation start_dialogue;
@@ -56,7 +56,7 @@ public class ButtonGenerator : MonoBehaviour
 
     public IEnumerator ButtonSpawner()
     {
-        for(int i=0; i<100; i++)
+        for(int i=0; i<500; i++)
         {
             SpawnButton();
             yield return new WaitForSeconds(spawnSpeed);
